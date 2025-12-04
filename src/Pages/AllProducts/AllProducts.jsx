@@ -20,70 +20,74 @@ const AllProducts = () => {
 
   if (loading) {
     return (
-      <div className="text-center py-20 text-gray-500 text-lg">
+      <div className="text-center py-20 text-base-content/70 text-lg">
         Loading products...
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold mb-8 text-center text-primary">
-        All Products
-      </h1>
+    <section className="py-12 bg-base-200">
+      <div className="max-w-7xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8 text-center">
+          All <span className="text-primary">Products</span>
+        </h1>
 
-      {products.length === 0 ? (
-        <p className="text-center text-gray-500">No products found.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <div
-              key={product._id}
-              className="border rounded-xl p-4 shadow hover:shadow-lg transition duration-300 bg-white"
-            >
-              <img
-                src={product.product_image}
-                alt={product.product_name}
-                className="w-full h-48 object-cover rounded-md mb-4"
-                onError={(e) => {
-                  e.target.src =
-                    "https://i.ibb.co/6Nf3ySm/default-user.png";
-                }}
-              />
-              <h2 className="text-lg text-primary font-semibold mb-2 line-clamp-1">
-                {product.product_name}
-              </h2>
-              <p className="text-gray-700 font-medium">
-                Price: ${product.price}
-              </p>
-              <p className="text-gray-700">
-                Origin: {product.origin_country || "N/A"}
-              </p>
-              <p className="text-gray-700">
-                Rating: {product.rating || "N/A"}
-              </p>
-              <p
-                className={`text-sm font-medium mt-1 ${
-                  product.available_quantity > 0
-                    ? "text-green-600"
-                    : "text-red-600"
-                }`}
-              >
-                {product.available_quantity > 0
-                  ? `${product.available_quantity} in stock`
-                  : "Out of stock"}
-              </p>
-              <Link
-                to={"/products-details/:id"}
-                className="btn btn-outline btn-primary w-full mt-3"
-              >
-                View Details
-              </Link>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+        {products.length === 0 ? (
+          <p className="text-center text-base-content/70">No products found.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <div key={product._id} className="card bg-base-100 shadow-xl">
+                <figure>
+                  <img
+                    src={product.product_image}
+                    alt={product.product_name}
+                    className="w-full h-48 object-cover"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://via.placeholder.com/400x250.png?text=Image+Not+Found";
+                    }}
+                  />
+                </figure>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-primary justify-center">
+                    {product.product_name}
+                  </h2>
+                  <p className="text-base-content/80">
+                    Price:{" "}
+                    <span className="font-semibold">${product.price}</span>
+                  </p>
+                  <p className="text-base-content/80">
+                    Origin: {product.origin_country || "N/A"}
+                  </p>
+                  <p className="text-base-content/80">
+                    Rating: {product.rating || "N/A"} ⭐
+                  </p>
+                  <p
+                    className={`text-sm font-medium mt-1 ${
+                      product.available_quantity > 0
+                        ? "text-success"
+                        : "text-error"
+                    }`}>
+                    {product.available_quantity > 0
+                      ? `${product.available_quantity} in stock`
+                      : "Out of stock"}
+                  </p>
+                  <div className="card-actions justify-end mt-4">
+                    <Link
+                      to={`/products-details/${product._id}`}
+                      className="btn btn-primary btn-block">
+                      View Details
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 

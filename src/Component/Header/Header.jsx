@@ -17,33 +17,57 @@ const Header = () => {
   const menuLinks = (
     <>
       <li>
-        <NavLink to="/" className="hover:text-primary focus:text-primary">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-medium"
+              : "hover:text-primary focus:text-primary"
+          }>
           Home
         </NavLink>
       </li>
       <li>
         <NavLink
           to="/allProducts"
-          className="hover:text-primary focus:text-primary">
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-medium"
+              : "hover:text-primary focus:text-primary"
+          }>
           All Products
         </NavLink>
       </li>
       <li>
-        <NavLink to="/import" className="hover:text-primary focus:text-primary">
+        <NavLink
+          to="/import"
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-medium"
+              : "hover:text-primary focus:text-primary"
+          }>
           My Import
         </NavLink>
       </li>
       <li>
         <NavLink
           to="/export-list"
-          className="hover:text-primary focus:text-primary">
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-medium"
+              : "hover:text-primary focus:text-primary"
+          }>
           My Export
         </NavLink>
       </li>
       <li>
         <NavLink
           to="/add-product"
-          className="hover:text-primary focus:text-primary">
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-medium"
+              : "hover:text-primary focus:text-primary"
+          }>
           Add Product
         </NavLink>
       </li>
@@ -52,12 +76,15 @@ const Header = () => {
 
   return (
     <Container>
-      <div className="navbar bg-base-100 sticky top-0 z-999 ">
+      <div className="navbar  sticky top-0 z-999 ">
         {/* LEFT */}
         <div className="navbar-start">
           {/* Mobile Menu */}
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <label
+              tabIndex={0}
+              className="btn btn-ghost lg:hidden p-2"
+              aria-label="Menu">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -75,7 +102,7 @@ const Header = () => {
 
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow border border-base-300">
               {menuLinks}
             </ul>
           </div>
@@ -88,7 +115,7 @@ const Header = () => {
               className="h-10 w-auto rounded-xl"
             />
 
-            <span className="flex items-center gap-1 text-xl sm:text-2xl font-bold">
+            <span className=" items-center gap-1 text-xl sm:text-2xl font-bold hidden md:flex">
               <span className="text-primary">EXPORT</span>
               <span className="text-primary">EASE</span>
             </span>
@@ -101,7 +128,7 @@ const Header = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="navbar-end flex items-center gap-3">
+        <div className="navbar-end flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
 
           {user ? (
@@ -110,21 +137,29 @@ const Header = () => {
               <div
                 className="tooltip tooltip-bottom"
                 data-tip={user.displayName || user.email}>
-                <img
-                  src={
-                    user.photoURL || "https://i.ibb.co/6Nf3ySm/default-user.png"
-                  }
-                  alt="User Avatar"
-                  className="w-10 h-10 rounded-full border-2 border-primary object-cover"
-                />
+                <div className="avatar">
+                  <div className="w-8 sm:w-10 rounded-full border-2 border-primary">
+                    <img
+                      src={
+                        user.photoURL ||
+                        "https://i.ibb.co/6Nf3ySm/default-user.png"
+                      }
+                      alt="User Avatar"
+                    />
+                  </div>
+                </div>
               </div>
 
-              <button onClick={handleSignOut} className="btn btn-primary">
+              <button
+                onClick={handleSignOut}
+                className="btn btn-primary btn-sm sm:btn-md">
                 Log Out
               </button>
             </>
           ) : (
-            <Link to="/login" className="btn btn-primary shadow-none">
+            <Link
+              to="/login"
+              className="btn btn-primary btn-sm sm:btn-md shadow-none">
               Login
             </Link>
           )}
