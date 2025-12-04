@@ -1,23 +1,21 @@
-import React from 'react';
+import React from "react";
 
 const MyExport = () => {
-const handelSubmit = (e) =>{
+  const handelSubmit = (e) => {
     e.preventDefault();
 
-
     const formData = {
-        productImage: e.target.name.value,
-        productName: e.target.name.value,
-        price: e.target.name.value,
-        originCountry: e.target.value,
-        availableQuantity: e.target.value,
+      productImage: e.target.name.value,
+      productName: e.target.name.value,
+      price: e.target.name.value,
+      originCountry: e.target.value,
+      availableQuantity: e.target.value,
+    };
+    console.log(formData);
+  };
 
-    }
-    console.log(formData)
-}
-
-    return (
-      <main className="flex justify-center items-center min-h-screen bg-base-200 px-4 py-8">
+  return (
+    <main className="flex justify-center items-center min-h-screen bg-base-200 px-4 py-8">
       <div className="card bg-base-100 w-full max-w-md shadow-xl mx-auto">
         <div className="card-body p-6">
           <h2 className="text-2xl font-bold text-center mb-4 text-primary">
@@ -26,7 +24,6 @@ const handelSubmit = (e) =>{
 
           <form onSubmit={handelSubmit}>
             <fieldset className="space-y-4">
-
               <div>
                 <label htmlFor="imageUrl" className="label text-sm font-medium">
                   Product Image
@@ -39,11 +36,12 @@ const handelSubmit = (e) =>{
                   placeholder="https://example.com/image.jpg"
                   required
                 />
-        
-               </div>
+              </div>
 
               <div>
-                <label htmlFor="productName" className="label text-sm font-medium">
+                <label
+                  htmlFor="productName"
+                  className="label text-sm font-medium">
                   Product Name
                 </label>
                 <input
@@ -73,7 +71,9 @@ const handelSubmit = (e) =>{
               </div>
 
               <div>
-                <label htmlFor="originCountry" className="label text-sm font-medium">
+                <label
+                  htmlFor="originCountry"
+                  className="label text-sm font-medium">
                   Origin Country
                 </label>
                 <input
@@ -85,7 +85,7 @@ const handelSubmit = (e) =>{
                   required
                 />
               </div>
- 
+
               <div>
                 <label htmlFor="rating" className="label text-sm font-medium">
                   Rating
@@ -115,10 +115,7 @@ const handelSubmit = (e) =>{
                 />
               </div>
 
-              <button
-                type="submit"
-                className="gradient-btn w-full btn-sm mt-2"
-              >
+              <button type="submit" className="gradient-btn w-full btn-sm mt-2">
                 Add Product
               </button>
             </fieldset>
@@ -126,7 +123,7 @@ const handelSubmit = (e) =>{
         </div>
       </div>
     </main>
-        );
-    }
+  );
+};
 
 export default MyExport;
