@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 import img from "../../assets/Top CMS Feature Import Export SUMMARY.png";
 import Container from "../../Pages/Responsive/Container";
+import ThemeToggle from "../Theme/ThemeToggole";
 
 const Header = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -16,33 +17,50 @@ const Header = () => {
   const menuLinks = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className="hover:text-primary focus:text-primary">
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/allProducts">All Products</NavLink>
+        <NavLink
+          to="/allProducts"
+          className="hover:text-primary focus:text-primary">
+          All Products
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/import">My Import</NavLink>
+        <NavLink to="/import" className="hover:text-primary focus:text-primary">
+          My Import
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/">My Export</NavLink>
+        <NavLink
+          to="/export-list"
+          className="hover:text-primary focus:text-primary">
+          My Export
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/export">Add Product</NavLink>
+        <NavLink
+          to="/add-product"
+          className="hover:text-primary focus:text-primary">
+          Add Product
+        </NavLink>
       </li>
     </>
   );
 
   return (
     <Container>
-      {" "}
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-100 sticky top-0 z-999 ">
+        {/* LEFT */}
         <div className="navbar-start">
+          {/* Mobile Menu */}
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -50,39 +68,45 @@ const Header = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
+                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </label>
+
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
               {menuLinks}
             </ul>
           </div>
-          <Link to="/">
+
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
             <img
               src={img}
               alt="Import Export Logo"
-              className="h-10 w-auto mr-2 rounded-2xl"
+              className="h-10 w-auto rounded-xl"
             />
+
+            <span className="flex items-center gap-1 text-xl sm:text-2xl font-bold">
+              <span className="text-primary">EXPORT</span>
+              <span className="text-primary">EASE</span>
+            </span>
           </Link>
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl transition-all duration-300 hover:text-primary focus:text-primary">
-            <span className="text-primary">EXPORT</span>
-            <span className="text-gray-800">EASE</span>
-          </a>
         </div>
 
+        {/* CENTER (Desktop Menu) */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{menuLinks}</ul>
         </div>
 
+        {/* RIGHT */}
         <div className="navbar-end flex items-center gap-3">
+          <ThemeToggle />
+
           {user ? (
             <>
-              {/* 👇 User Image */}
+              {/* User photo */}
               <div
                 className="tooltip tooltip-bottom"
                 data-tip={user.displayName || user.email}>
@@ -95,12 +119,12 @@ const Header = () => {
                 />
               </div>
 
-              <button onClick={handleSignOut} className="gradient-btn">
+              <button onClick={handleSignOut} className="btn btn-primary">
                 Log Out
               </button>
             </>
           ) : (
-            <Link to="/login" className="gradient-btn">
+            <Link to="/login" className="btn btn-primary shadow-none">
               Login
             </Link>
           )}
