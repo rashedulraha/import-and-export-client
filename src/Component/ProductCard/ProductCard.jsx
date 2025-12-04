@@ -1,50 +1,61 @@
 import React from "react";
 
-const ProductCard = ({ product }) => {
-  const demoText =
-    "Discover the best quality products from around the world, right at your fingertips.";
-
+const ProductCard = ({ products }) => {
   return (
-    <div className="card bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src={product.product_image}
-          alt={product.product_name}
-          className="w-full h-48 object-cover"
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/400x250.png?text=Image+Not+Found";
-          }}
-        />
-      </figure>
-      <div className="card-body p-4">
-        <h2 className="card-title text-primary justify-center">
-          {product.product_name}
-        </h2>
-
-        <p className="text-base-content/70 text-sm italic">{demoText}</p>
-
-        <p className="text-base-content/80">
-          Price: <span className="font-semibold">${product.price}</span>
-        </p>
-        <p className="text-base-content/80">
-          Origin: {product.origin_country || "N/A"}
-        </p>
-        <p className="text-base-content/80">
-          Rating: {product.rating || "N/A"} ⭐
-        </p>
-        <p
-          className={`text-sm font-medium mt-1 ${
-            product.available_quantity > 0 ? "text-success" : "text-error"
-          }`}>
-          {product.available_quantity > 0
-            ? `${product.available_quantity} in stock`
-            : "Out of stock"}
-        </p>
-        <div className="card-actions justify-end mt-4">
-          <button className="btn btn-primary btn-sm">View Details</button>
-        </div>
-      </div>
+    <div className="overflow-x-auto">
+      <table className="table table-zebra table-compact w-full">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Origin</th>
+            <th>Rating</th>
+            <th>Stock Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product._id}>
+              <td>
+                <div className="avatar">
+                  <div className="w-16 h-16 rounded">
+                    <img
+                      src={product.product_image}
+                      alt={product.product_name}
+                      onError={(e) => {
+                        e.target.src =
+                          "https://via.placeholder.com/100x100.png?text=No+Img";
+                      }}
+                    />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div className="font-bold">{product.product_name}</div>
+              </td>
+              <td>${product.price}</td>
+              <td>{product.origin_country || "N/A"}</td>
+              <td>{product.rating || "N/A"} </td>
+              <td>
+                {product.available_quantity > 0 ? (
+                  <span className="badge badge-success badge-sm">
+                    {product.available_quantity} in stock
+                  </span>
+                ) : (
+                  <span className="badge badge-error badge-sm">
+                    Out of stock
+                  </span>
+                )}
+              </td>
+              <td>
+                <button className="btn btn-primary btn-sm">View Details</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
