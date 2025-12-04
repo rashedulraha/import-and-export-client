@@ -1,63 +1,76 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const LatestProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     fetch("https://smart-deals-app.vercel.app/latest-products")
-      .then(res => res.json())
-      .then(data => setProducts(data));
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center">
-        Recent <span className="text-primary">Products</span>
-      </h1>
+    <section className="py-12 bg-base-200">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">
+          Recent <span className="text-primary">Products</span>
+        </h2>
 
-      <div className="max-w-7xl mx-auto px-4 py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product, index) => (
-          <div
-            key={index}
-            className="border rounded-xl p-4 shadow hover:shadow-lg transition"
-          >
-            <img
-              src={product.product_image}
-              alt={product.product_name}
-              className="w-full h-48 object-cover rounded-md mb-4"
-              onError={(e) => {
-                e.target.src = "https://i.ibb.co/6Nf3ySm/default-user.png";
-              }}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <div key={product._id} className="card bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src={product.product_image}
+                  alt={product.product_name}
+                  className="w-full h-48 object-cover"
+                  onError={(e) => {
+                    e.target.src =
+                      "https://via.placeholder.com/400x250.png?text=Image+Not+Found";
+                  }}
+                />
+              </figure>
+              <div className="card-body p-4">
+                <h2 className="card-title text-primary justify-center">
+                  {product.product_name}
+                </h2>
+                <p className="text-base-content/80">
+                  Price: <span className="font-semibold">${product.price}</span>
+                </p>
+                <p className="text-base-content/80">
+                  Origin: {product.origin_country}
+                </p>
+                <p className="text-base-content/80">
+                  Rating: {product.rating} ⭐
+                </p>
+                <p className="text-base-content/80">
+                  Stock:{" "}
+                  {product.available_quantity > 0 ? (
+                    product.available_quantity
+                  ) : (
+                    <span className="text-error">Out of stock</span>
+                  )}
+                </p>
+                <div className="card-actions justify-end mt-4">
+                  <Link
+                    to={`/products-details/${product._id}`}
+                    className="btn btn-primary btn-block shadow-none">
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-            <h2 className="text-lg font-semibold text-primary mb-2">
-              {product.product_name}
-            </h2>
-
-            <p className="text-gray-700">Price: ${product.price}</p>
-            <p className="text-gray-700">Origin: {product.origin_country}</p>
-            <p className="text-gray-700">Rating: {product.rating} stars</p>
-            <p className="text-gray-700">
-              Stock: {product.available_quantity > 0 ? product.available_quantity : "Out of stock"}
-            </p>
-
-            <Link
-              to={"products-details/:id"}
-              className="btn btn-outline btn-primary w-full mt-3"
-            >
-              View Details
-            </Link>
-          </div>
-        ))}
+        <div className="flex justify-center mt-10">
+          <Link to="/allProducts" className="btn btn-outline btn-primary">
+            See All Products
+          </Link>
+        </div>
       </div>
-
-      <div className="flex justify-center mb-10">
-        <Link to="/allProducts" className="btn btn-outline btn-primary px-6">
-          See All Products
-        </Link>
-      </div>
-    </div>
+    </section>
   );
 };
 
