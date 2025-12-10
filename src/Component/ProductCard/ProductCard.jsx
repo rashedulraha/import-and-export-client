@@ -20,7 +20,7 @@ const ProductCard = ({ products }) => {
             <tr key={product._id}>
               <td>
                 <div className="avatar">
-                  <div className="w-16 h-16 rounded">
+                  <div className="w-17 h-17 rounded">
                     <img
                       src={product.product_image}
                       alt={product.product_name}
